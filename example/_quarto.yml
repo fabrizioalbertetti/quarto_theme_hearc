@@ -17,9 +17,11 @@ institute: "HE-Arc Ingénierie"
 date: today
 date-format: "D MMMM YYYY"
 
-# Chaque présentation produit deux PDF dans _output/ :
+# Chaque présentation produit trois fichiers dans _output/ :
 #   01-exemple.pdf          avec animations (pour projeter)
 #   01-exemple-handout.pdf  sans animations, une page par diapositive (à distribuer)
+#   01-exemple.html         reveal.js, à ouvrir dans un navigateur (touche S : notes)
+# Supprimer une ligne ci-dessous pour ne plus produire le format correspondant.
 format:
   theme-hearc-beamer:
     # Thème Beamer : `hearc-ing` (charte du logo) ou tout thème standard
@@ -29,3 +31,6 @@ format:
     # colortheme: beaver
   # Mêmes options que ci-dessus (à reporter si on change de thème)
   theme-hearc-beamer+handout: default
+  # Thème reveal.js : `hearc-ing.scss` (défaut) ou un thème standard
+  # (simple, serif, ...) ; voir https://quarto.org/docs/presentations/revealjs/
+  theme-hearc-revealjs: default

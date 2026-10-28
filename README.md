@@ -1,19 +1,22 @@
-# Extension Quarto : diapositives Beamer HE-Arc Ingénierie
+# Extension Quarto : diapositives HE-Arc Ingénierie (Beamer et reveal.js)
 
-Extension Quarto pour produire des présentations de cours en PDF (Beamer), avec un thème
-graphique aligné sur le logo HE-Arc Ingénierie (rouge `#FF0000`, noir, fond blanc).
+Extension Quarto pour produire des présentations de cours en PDF (Beamer) et en HTML
+(reveal.js), avec un thème graphique aligné sur le logo HE-Arc Ingénierie (rouge `#FF0000`,
+noir, fond blanc).
 
-Elle fournit deux formats :
+Elle fournit trois formats :
 
-| Format                       | PDF produit              | Usage                                         |
+| Format                       | Fichier produit          | Usage                                         |
 |------------------------------|--------------------------|-----------------------------------------------|
 | `theme-hearc-beamer`         | `cours.pdf`              | projection, avec animations (pauses, listes progressives) |
 | `theme-hearc-beamer+handout` | `cours-handout.pdf`      | à distribuer, sans animations : une page par diapositive, dans son état final |
+| `theme-hearc-revealjs`       | `cours.html`             | projection dans un navigateur, avec notes de l'orateur (touche `S`) |
 
 ## Prérequis
 
 - [Quarto](https://quarto.org) ≥ 1.4
-- Une distribution LaTeX avec `xelatex` (MiKTeX, TeX Live ou `quarto install tinytex`)
+- Une distribution LaTeX avec `xelatex` (MiKTeX, TeX Live ou `quarto install tinytex`),
+  pour les formats PDF uniquement
 
 ## Installation
 
@@ -74,10 +77,12 @@ Pour figer une version, ajouter un tag : `quarto add fabrizioalbertetti/quarto_t
      theme-hearc-beamer:
        theme: hearc-ing # ou Madrid, Boadilla, metropolis, ...
      theme-hearc-beamer+handout: default   # optionnel : version à distribuer
+     theme-hearc-revealjs: default         # optionnel : version HTML
    ```
 
    Les options données sous un format ne s'appliquent qu'à lui : en cas de changement
-   (par ex. `theme:`), les reporter sous les deux.
+   (par ex. `theme:`), les reporter sous les deux formats Beamer. Pour reveal.js, `theme:`
+   attend un fichier `.scss` ou un thème reveal.js standard.
 
 2. Créer une présentation par fichier `.qmd`, avec ses **paramètres propres** :
 
@@ -94,7 +99,7 @@ Pour figer une version, ajouter un tag : `quarto add fabrizioalbertetti/quarto_t
    - contenu
    ```
 
-3. Générer les PDF :
+3. Générer les présentations :
 
    ```sh
    quarto render                   # toutes les présentations, tous les formats → _output/
@@ -115,24 +120,34 @@ Toute clé définie dans un `.qmd` remplace celle de `_quarto.yml` (par ex. `dat
 | Pause                 | `. . .`                                         |
 | Liste progressive     | `::: incremental` … `:::`                       |
 | Colonnes              | `:::: columns` + `::: {.column width="50%"}`    |
-| Options de frame      | `## Titre {.plain}`, `{.allowframebreaks}`      |
+| Contenu trop long     | `## Titre {.allowframebreaks}` (PDF : plusieurs pages ; HTML : défilement) |
+| Notes de l'orateur    | `::: notes` … `:::` (reveal.js uniquement, jamais dans les PDF) |
+| Contenu propre à un format | `::: {.content-visible when-format="beamer"}` (ou `"revealjs"`) |
+| Image pour les deux formats | `![](images/schema)` sans extension : `schema.pdf` en Beamer, `schema.svg` en reveal.js |
 
-Voir [example/01-exemple.qmd](example/01-exemple.qmd) pour un exemple complet.
+Le LaTeX brut (`\only<2>{…}`, blocs ```` ```{=latex} ````) est ignoré par reveal.js : réserver
+les animations Beamer à un bloc `when-format="beamer"` et prévoir leur équivalent reveal.js
+(fragments). Voir [example/01-exemple.qmd](example/01-exemple.qmd) pour un exemple complet,
+commenté.
 
 ## Structure du dépôt
 
 ```
 extension/                   l'extension Quarto (installée par `quarto add`)
   _extensions/theme-hearc/
-    _extension.yml           formats `theme-hearc-beamer` et `+handout` (xelatex, 16:9, français, logo…)
+    _extension.yml           formats `theme-hearc-beamer`, `+handout` et `theme-hearc-revealjs`
     beamerthemehearc-ing.sty thème Beamer (couleurs, titre, pied de page)
-    course-meta.lua          transmet `course.*` au thème
+    hearc-ing.scss           thème reveal.js, même charte
+    title-slide.html         page de titre reveal.js (cours, classe, logo)
+    course-meta.lua          transmet `course.*` au thème ; en reveal.js, pied de page et blocs `###`
     handout-rename.lua       renomme `cours+handout.pdf` en `cours-handout.pdf` après le rendu
     handout-last-slide.tex   handout : ne garde que la dernière étape des animations de chaque diapositive
     logo-he-arc-ing.jpg      logo de la page de titre
 example/                     projet Quarto d'exemple qui utilise l'extension
   _quarto.yml                paramètres communs du cours
   01-exemple.qmd             présentation d'exemple
+  images/                    images en .pdf (Beamer) et .svg (reveal.js)
+    src/                     sources TikZ ; `sh images/src/build.sh` régénère les images
 ```
 
 ## Développement
@@ -148,7 +163,8 @@ quarto render                   # → example/_output/01-exemple.pdf
 
 ## Personnalisation
 
-- **Couleurs, polices, mise en page** : `extension/_extensions/theme-hearc/beamerthemehearc-ing.sty`.
+- **Couleurs, polices, mise en page** : `extension/_extensions/theme-hearc/beamerthemehearc-ing.sty`
+  (PDF) et `hearc-ing.scss` (reveal.js) ; à modifier ensemble pour garder les deux formats alignés.
   Pour une modification propre à un cours, éditer la copie installée dans ce cours ;
   pour la partager, la faire dans ce dépôt puis `quarto update` dans les cours.
 - **Police** : la police sans-serif par défaut (Latin Modern Sans) fonctionne partout ;
