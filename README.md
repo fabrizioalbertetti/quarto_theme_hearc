@@ -8,7 +8,7 @@ Elle fournit deux formats :
 | Format                       | PDF produit              | Usage                                         |
 |------------------------------|--------------------------|-----------------------------------------------|
 | `theme-hearc-beamer`         | `cours.pdf`              | projection, avec animations (pauses, listes progressives) |
-| `theme-hearc-beamer+handout` | `cours-handout.pdf`      | à distribuer, sans animations : une page par diapositive |
+| `theme-hearc-beamer+handout` | `cours-handout.pdf`      | à distribuer, sans animations : une page par diapositive, dans son état final |
 
 ## Prérequis
 
@@ -128,6 +128,7 @@ extension/                   l'extension Quarto (installée par `quarto add`)
     beamerthemehearc-ing.sty thème Beamer (couleurs, titre, pied de page)
     course-meta.lua          transmet `course.*` au thème
     handout-rename.lua       renomme `cours+handout.pdf` en `cours-handout.pdf` après le rendu
+    handout-last-slide.tex   handout : ne garde que la dernière étape des animations de chaque diapositive
     logo-he-arc-ing.jpg      logo de la page de titre
 example/                     projet Quarto d'exemple qui utilise l'extension
   _quarto.yml                paramètres communs du cours

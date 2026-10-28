@@ -29,7 +29,9 @@ contributes:
         - logo-he-arc-ing.jpg
     # theme-hearc-beamer : présentation avec animations (pauses, listes progressives)
     beamer: {}
-    # theme-hearc-beamer+handout : support à distribuer, une page par diapositive
+    # theme-hearc-beamer+handout : support à distribuer, une page par frame
+    # montrant l'état final de ses animations (l'option `handout` de Beamer
+    # superposerait toutes les étapes, voir handout-last-slide.tex)
     beamer+handout:
-      classoption:
-        - handout
+      include-in-header:
+        - handout-last-slide.tex

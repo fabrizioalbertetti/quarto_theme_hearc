@@ -1,6 +1,11 @@
 ---
-title: "Chap. 1 - Introduction au cours"
-subtitle: "Objectifs et organisation"
+# Titre et sous-titre de la page de titre (auteur, date, cours : voir _quarto.yml)
+title: "Chap. 1 - Introduction à l'intelligence artificielle"
+subtitle: "Objectifs, notions de base et premiers algorithmes"
+# Structure : un titre « # » crée une page de section, un titre « ## » crée
+# une diapositive (slide-level: 2). Les commentaires HTML <!-- ... --> placés
+# dans une diapositive n'apparaissent pas dans le PDF ; avant le premier titre,
+# ils produiraient une diapositive vide.
 ---
 
 # Organisation
@@ -9,69 +14,226 @@ subtitle: "Objectifs et organisation"
 
 À la fin du cours, vous serez capables de :
 
-- concevoir une application orientée objet ;
-- appliquer les principes **SOLID** ;
-  - en particulier l'inversion de dépendances ;
-- tester votre code de manière automatisée.
+<!-- Liste à puces : « - » ; sous-liste : indentation de 2 espaces -->
+
+- distinguer les grandes familles de l'**IA** (symbolique, statistique, connexionniste) ;
+- entraîner et évaluer un modèle d'apprentissage automatique ;
+  - en particulier choisir une métrique adaptée au problème ;
+- discuter des limites et des enjeux éthiques d'un système d'IA.
 
 ## Apparition progressive
 
-Un premier point.
+Qu'est-ce que l'intelligence artificielle ?
+
+<!-- « . . . » seul sur sa ligne : pause, la suite apparaît au clic suivant -->
 
 . . .
 
-Un deuxième point, affiché au clic suivant.
+Un ensemble de techniques permettant à une machine d'accomplir des tâches
+qui demandent habituellement de l'intelligence humaine.
+
+<!--
+Bloc « incremental » : les éléments de la liste apparaissent un par un.
+Pour rendre toutes les listes progressives, ajouter `incremental: true`
+sous le format dans _quarto.yml ; « ::: nonincremental » fait alors l'inverse.
+-->
 
 ::: incremental
-- élément A
-- élément B
+- systèmes experts (règles écrites à la main) ;
+- apprentissage automatique (règles apprises à partir des données) ;
+- apprentissage profond (réseaux de neurones à plusieurs couches).
 :::
 
-# Contenu technique
+# Apprentissage automatique
+
+## Image avec légende
+
+<!--
+Image : ![légende](chemin){options}. Une légende non vide produit une figure
+numérotée ; `width` est relatif à la largeur de la diapositive. Formats
+acceptés : PDF (vectoriel, à privilégier), PNG, JPG.
+-->
+
+![Un réseau de neurones à deux couches cachées.](images/reseau.pdf){width=80%}
+
+## Image et texte en colonnes
+
+<!--
+Colonnes : un bloc « :::: columns » (4 deux-points) contient des blocs
+« ::: {.column width="..."} » (3 deux-points). La somme des largeurs ne
+doit pas dépasser 100 %. Une image sans légende (![](...)) remplit la colonne.
+-->
+
+:::: columns
+::: {.column width="55%"}
+![](images/neurone.pdf)
+:::
+
+::: {.column width="45%"}
+Un **neurone artificiel** :
+
+<!-- Liste numérotée : « 1. », « 2. », ... -->
+
+1. pondère ses entrées $x_i$ par des poids $w_i$ ;
+2. ajoute un biais $b$ ;
+3. applique une fonction d'activation $\sigma$.
+
+<!-- Formule : $...$ dans le texte, $$...$$ centrée sur sa propre ligne -->
+
+$$
+y = \sigma\Big(\sum_i w_i x_i + b\Big)
+$$
+:::
+::::
+
+## Texte et image en colonnes
+
+:::: columns
+::: {.column width="50%"}
+L'algorithme **k-means** regroupe des points en $k$ groupes, sans étiquettes :
+c'est de l'apprentissage **non supervisé**.
+
+Les étoiles représentent les centroïdes des groupes.
+:::
+
+::: {.column width="50%"}
+![](images/kmeans.pdf){width=90%}
+:::
+::::
+
+## Animation d'images
+
+<!--
+Animation avancée en LaTeX Beamer brut (bloc ```{=latex}, ou commande
+directement dans le texte) :
+- \only<n>{...} : contenu présent uniquement à l'étape n (n'occupe pas
+  de place aux autres étapes) ; ici chaque image remplace la précédente.
+  \uncover<n->{...} : visible à partir de l'étape n, place réservée avant.
+- page=n choisit une page d'un PDF de plusieurs pages.
+- \alert<n>{...} : texte mis en évidence (rouge) à l'étape n seulement.
+Le handout ne garde que la dernière étape (ici l'image 3).
+-->
+
+:::: columns
+::: {.column width="50%"}
+```{=latex}
+\only<1>{\includegraphics[page=1,width=\linewidth]{images/kmeans.pdf}}%
+\only<2>{\includegraphics[page=2,width=\linewidth]{images/kmeans.pdf}}%
+\only<3>{\includegraphics[page=3,width=\linewidth]{images/kmeans.pdf}}
+```
+:::
+
+::: {.column width="50%"}
+1. \alert<1>{Placer $k$ centroïdes au hasard.}
+2. \alert<2>{Affecter chaque point au centroïde le plus proche.}
+3. \alert<3>{Déplacer chaque centroïde au centre de son groupe.}
+
+Répéter 2 et 3 jusqu'à stabilité.
+:::
+::::
+
+# Mise en pratique
 
 ## Code source
 
-```python
-class Animal:
-    def __init__(self, nom: str) -> None:
-        self.nom = nom
+<!--
+Bloc de code : ```langage ... ``` (coloration syntaxique « github »).
+Pour un code long, réduire la taille : « ## Code source {.shrink} »,
+ou couper le code sur deux diapositives.
+-->
 
-    def parler(self) -> str:
-        raise NotImplementedError
+```python
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+modele = DecisionTreeClassifier(max_depth=3).fit(X_train, y_train)
+print(f"Exactitude : {modele.score(X_test, y_test):.2f}")
 ```
 
 ## Blocs
 
+<!--
+Sous une diapositive « ## », un titre « ### » crée un bloc Beamer :
+bloc standard (noir), {.alert} (rouge) ou {.example} (gris).
+-->
+
 ### Définition
 
-Une **classe** est un modèle décrivant l'état et le comportement d'objets.
+L'**apprentissage supervisé** consiste à apprendre une fonction $f : X \to Y$
+à partir d'exemples étiquetés $(x_i, y_i)$.
 
 ### Attention {.alert}
 
-Ne confondez pas *classe* et *instance*.
+Un modèle parfait sur les données d'entraînement peut être en **surapprentissage** :
+toujours évaluer sur des données de test.
 
 ### Exemple {.example}
 
-`Animal("Rex")` crée une instance de `Animal`.
+Prédire si un courriel est un pourriel à partir de son contenu.
 
-## Deux colonnes et formule
+## Formule et tableau
 
 :::: columns
 ::: {.column width="50%"}
-Complexité de la recherche dichotomique :
+Précision et rappel d'un classifieur :
+
+<!-- \qquad : grand espace horizontal ; \text{...} : texte droit dans une formule -->
 
 $$
-T(n) = T\left(\frac{n}{2}\right) + O(1) = O(\log n)
+P = \frac{\text{VP}}{\text{VP} + \text{FP}} \qquad R = \frac{\text{VP}}{\text{VP} + \text{FN}}
 $$
+
+où VP, FP et FN sont les vrais positifs, faux positifs et faux négatifs.
 :::
 
 ::: {.column width="50%"}
-| Structure | Accès  |
-|-----------|--------|
-| Tableau   | $O(1)$ |
-| Liste     | $O(n)$ |
+<!--
+Tableau Markdown : colonnes séparées par « | », ligne d'en-tête suivie de
+tirets. Les colonnes n'ont pas besoin d'être alignées dans le source.
+-->
+
+| Algorithme          | Type           |
+|---------------------|----------------|
+| Régression logistique | supervisé    |
+| Arbre de décision   | supervisé      |
+| k-means             | non supervisé  |
+| Q-learning          | par renforcement |
 :::
 ::::
+
+## Glossaire {.allowframebreaks .t}
+
+<!--
+Contenu trop long : Beamer ne coupe PAS automatiquement, le texte qui dépasse
+sort de la diapositive sans avertissement. Solutions :
+- {.allowframebreaks} : répartit le contenu sur plusieurs pages, numérotées
+  dans le titre (Glossaire I, II, ...). Pratique pour une liste ou des
+  références ; incompatible avec les animations (. . ., incremental, \only).
+  Ici, .t aligne le contenu en haut de chaque page (sinon la dernière page,
+  moins remplie, est centrée verticalement).
+- {.shrink} : réduit le texte pour qu'il tienne (léger dépassement seulement).
+- Sinon, couper soi-même en deux diapositives « ## ».
+-->
+
+- **Agent** : entité qui perçoit son environnement et agit pour atteindre un but.
+- **Apprentissage supervisé** : apprentissage à partir d'exemples étiquetés.
+- **Apprentissage non supervisé** : recherche de structure dans des données sans étiquettes.
+- **Apprentissage par renforcement** : apprentissage par essais et récompenses.
+- **Biais** : terme constant d'un neurone ; aussi, erreur systématique d'un modèle.
+- **Centroïde** : centre d'un groupe de points (k-means).
+- **Classification** : prédiction d'une catégorie.
+- **Descente de gradient** : méthode d'optimisation itérative des paramètres.
+- **Époque** : un passage complet sur les données d'entraînement.
+- **Fonction de perte** : mesure de l'erreur du modèle à minimiser.
+- **Hyperparamètre** : réglage fixé avant l'entraînement (profondeur, taux d'apprentissage...).
+- **Jeu de test** : données réservées à l'évaluation finale du modèle.
+- **Régression** : prédiction d'une valeur numérique.
+- **Surapprentissage** : modèle trop ajusté aux données d'entraînement.
+- **Validation croisée** : évaluation sur plusieurs découpages des données.
 
 ## Questions ?
 
