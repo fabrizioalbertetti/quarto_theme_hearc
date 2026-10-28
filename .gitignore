@@ -1,19 +1,18 @@
-_output/
+# Rendus et cache de l'exemple : voir example/.gitignore (les PDF sont conservés)
 .quarto/
-*_files/
 **/*.quarto_ipynb
 
 # Copié automatiquement par l'extension au moment du rendu
 logo-he-arc-ing.jpg
 !/extension/_extensions/theme-hearc/logo-he-arc-ing.jpg
 
-# Fichiers de compilation des sources TikZ (example/images/src/)
-*.aux
-*.log
-*.pdf
-*.fls
-*.fdb_latexmk
-*.synctex.gz
+# Fichiers de compilation des sources TikZ
+/example/images/src/*.aux
+/example/images/src/*.log
+/example/images/src/*.pdf
+/example/images/src/*.fls
+/example/images/src/*.fdb_latexmk
+/example/images/src/*.synctex.gz
 
 # Copie locale de l'extension, installée depuis ../extension (voir README)
 /example/_extensions/

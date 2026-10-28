@@ -4,9 +4,14 @@
 -- en mode impression de reveal.js (?print-pdf) : une page par diapositive,
 -- dans l'état final de ses animations, sans les notes de l'orateur.
 --
+-- Quarto n'exécute ce script que lors du rendu d'un projet : `quarto render`
+-- (projet ou fichier) et le démarrage de `quarto preview` sans fichier, mais
+-- ni `quarto preview cours.qmd` ni les re-rendus à chaque sauvegarde. Il ne
+-- transmet aucune indication permettant de reconnaître une prévisualisation.
+--
 -- Variables d'environnement :
 --   QUARTO_CHROMIUM  chemin du navigateur à utiliser (sinon recherche automatique)
---   HEARC_NO_PDF=1   ne pas exporter (par ex. pendant `quarto preview`)
+--   HEARC_NO_PDF=1   ne pas exporter (par ex. pour `quarto preview` du projet entier)
 -- Les chemins de QUARTO_PROJECT_OUTPUT_FILES sont relatifs à la racine du
 -- projet, qui est le répertoire courant lors de l'exécution du script.
 

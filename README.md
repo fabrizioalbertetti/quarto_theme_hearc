@@ -40,14 +40,30 @@ quarto use template fabrizioalbertetti/quarto_theme_hearc/example
 
 ### Fichiers à ignorer
 
-Au rendu, l'extension copie le logo à côté de chaque `.qmd`. Ajouter au `.gitignore`
-du dépôt (Quarto ne copie pas les fichiers cachés d'un template) :
+`quarto render` et `quarto preview` génèrent des fichiers qui ne doivent pas être committés.
+Ajouter au `.gitignore` du dépôt du cours :
 
 ```gitignore
-logo-he-arc-ing.jpg
-_output/
+# Rendus (cours.html, cours_files/...), sauf les PDF, conservés pour être distribués
+/_output/*
+!/_output/*.pdf
+# Cache et index de Quarto, dont l'état de quarto preview
 /.quarto/
+# Logo copié à côté de chaque .qmd au moment du rendu
+logo-he-arc-ing.jpg
+# Notebooks intermédiaires (diapositives qui exécutent du code)
+**/*.quarto_ipynb
 ```
+
+Écrire `/_output/*` et non `_output/` : git ne peut pas ré-inclure un fichier (ici les PDF)
+dont le dossier parent est entièrement ignoré. Le dossier `_extensions/` doit au contraire
+être committé. Sans `output-dir` dans
+`_quarto.yml`, les rendus sont écrits à côté des `.qmd` : ignorer alors aussi `*.html` et
+`*_files/`.
+
+Un exemple commenté se trouve dans [example/.gitignore](example/.gitignore). Comme Quarto ne
+copie pas les fichiers cachés d'un template, `quarto use template` ne l'installe pas : le
+copier à la main.
 
 ### Mise à jour
 
@@ -96,12 +112,22 @@ Pour figer une version, ajouter un tag : `quarto add fabrizioalbertetti/quarto_t
 
    ```sh
    quarto render                   # toutes les présentations → _output/ (HTML + PDF)
-   quarto render 03-heritage.qmd   # une seule
-   quarto preview 03-heritage.qmd  # rendu automatique à chaque sauvegarde
+   quarto render 03-heritage.qmd   # une seule (HTML + PDF)
+   quarto preview 03-heritage.qmd  # rendu automatique à chaque sauvegarde (HTML seul)
    ```
 
-   L'export PDF ajoute quelques secondes par présentation. Pour le désactiver (par ex.
-   pendant `quarto preview`), définir la variable d'environnement `HEARC_NO_PDF=1`.
+   Le PDF est exporté par `quarto render` uniquement (quelques secondes par présentation) :
+
+   | Commande                                   | PDF exporté ?                               |
+   |--------------------------------------------|---------------------------------------------|
+   | `quarto render`, `quarto render cours.qmd` | oui                                         |
+   | `quarto preview cours.qmd` (et le bouton *Preview* de VS Code) | non                     |
+   | `quarto preview` (projet entier)           | au démarrage seulement, pour les présentations à re-rendre ; jamais aux sauvegardes suivantes |
+
+   Quarto n'exécute le script d'export (`pdf-export.lua`) que lors du rendu d'un projet,
+   sans indiquer s'il s'agit d'une prévisualisation. Pour éviter l'export au démarrage de
+   `quarto preview`, préférer `quarto preview cours.qmd`, ou définir la variable
+   d'environnement `HEARC_NO_PDF=1` (par ex. `HEARC_NO_PDF=1 quarto preview`).
 
 Toute clé définie dans un `.qmd` remplace celle de `_quarto.yml` (par ex. `date`, `author`).
 

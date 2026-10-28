@@ -22,6 +22,19 @@ subtitle: "Objectifs, notions de base et premiers algorithmes"
   - en particulier choisir une métrique adaptée au problème ;
 - discuter des limites et des enjeux éthiques d'un système d'IA.
 
+<!--
+Deux sortes de commentaires :
+- commentaire HTML (comme celui-ci) : pour l'auteur, jamais affiché ;
+- ::: notes : notes de l'orateur, affichées dans la vue orateur (touche S
+  pendant la présentation, qui montre aussi la diapositive suivante et un
+  chronomètre), jamais dans le PDF.
+-->
+
+::: notes
+Présenter les objectifs en 2 minutes ; insister sur l'évaluation des modèles,
+qui sera notée au TP 3.
+:::
+
 ## Apparition progressive
 
 Qu'est-ce que l'intelligence artificielle ?
@@ -227,7 +240,7 @@ tirets. Les colonnes n'ont pas besoin d'être alignées dans le source.
 Contenu trop long : rien n'est coupé automatiquement, le texte qui dépasse
 sort de la diapositive sans avertissement. Solutions :
 - {.scrollable} : la diapositive défile (molette) pendant la présentation ;
-  dans le PDF, le contenu continue sur la page suivante.
+  dans le PDF, le contenu est réduit pour tenir sur une page.
 - {.smaller} : réduit la taille du texte (léger dépassement seulement).
 - Sinon, couper soi-même en deux diapositives « ## ».
 -->
@@ -247,6 +260,18 @@ sort de la diapositive sans avertissement. Solutions :
 - **Régression** : prédiction d'une valeur numérique.
 - **Surapprentissage** : modèle trop ajusté aux données d'entraînement.
 - **Validation croisée** : évaluation sur plusieurs découpages des données.
+
+## Corrigé de l'exercice {visibility="hidden"}
+
+<!--
+Diapositive cachée : {visibility="hidden"} la retire de la présentation et
+du PDF (elle n'est même pas écrite dans le .html), sans la supprimer du .qmd :
+pratique pour un corrigé à montrer plus tard, ou une diapositive en cours de
+rédaction. Retirer l'attribut pour l'afficher à nouveau.
+{visibility="uncounted"} l'affiche, mais sans la numéroter (annexes).
+-->
+
+Le modèle obtient une exactitude d'environ 0.95 sur le jeu de test.
 
 ## Questions ?
 
