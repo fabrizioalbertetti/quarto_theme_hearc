@@ -1,21 +1,19 @@
 _output/
 .quarto/
 *_files/
-*.tex
-*.log
-*.aux
-*.vrb
 **/*.quarto_ipynb
 
-# Copiés automatiquement par l'extension au moment du rendu
-beamerthemehearc-ing.sty
+# Copié automatiquement par l'extension au moment du rendu
 logo-he-arc-ing.jpg
-!/extension/_extensions/theme-hearc/beamerthemehearc-ing.sty
 !/extension/_extensions/theme-hearc/logo-he-arc-ing.jpg
-!/extension/_extensions/theme-hearc/handout-last-slide.tex
 
-# Sources TikZ des images de l'exemple (compilées en PDF dans example/images/)
-!/example/images/src/*.tex
+# Fichiers de compilation des sources TikZ (example/images/src/)
+*.aux
+*.log
+*.pdf
+*.fls
+*.fdb_latexmk
+*.synctex.gz
 
 # Copie locale de l'extension, installée depuis ../extension (voir README)
 /example/_extensions/

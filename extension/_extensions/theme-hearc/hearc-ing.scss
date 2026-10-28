@@ -1,6 +1,6 @@
 /*-- scss:defaults --*/
 
-// Thème reveal.js HE-Arc, pendant de beamerthemehearc-ing.sty :
+// Thème reveal.js HE-Arc, aligné sur le logo HE-Arc Ingénierie :
 // rouge pur (#FF0000), noir, fond blanc, formes rondes.
 $hearc-red: #FF0000;
 $hearc-black: #000000;
@@ -184,7 +184,7 @@ $code-block-border-color: $hearc-light;
 }
 
 // Image sans largeur explicite : occupe la largeur disponible (colonne,
-// superposition r-stack...), comme en Beamer, sans dépasser en hauteur
+// superposition r-stack...), sans dépasser en hauteur
 .reveal .slide:not(#title-slide) img:not([style*="width"]):not(.r-stretch) {
   width: 100%;
   max-height: 480px;
@@ -227,5 +227,23 @@ $code-block-border-color: $hearc-light;
   background: transparent;
   a {
     color: $hearc-red;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Export PDF (mode impression ?print-pdf, voir pdf-export.lua) : chaque
+// diapositive dans l'état final de ses animations
+// ---------------------------------------------------------------------------
+html.print-pdf .reveal {
+  // Fragments qui disparaissent au cours de l'animation
+  .fragment.fade-out,
+  .fragment.fade-in-then-out,
+  .fragment.current-visible {
+    display: none !important;
+  }
+  // Diapositive défilante : pas de barre de défilement (le contenu est
+  // réduit pour tenir sur la page, voir pdf-print.html)
+  .scrollable {
+    overflow: visible !important;
   }
 }

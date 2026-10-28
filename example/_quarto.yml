@@ -17,20 +17,12 @@ institute: "HE-Arc Ingénierie"
 date: today
 date-format: "D MMMM YYYY"
 
-# Chaque présentation produit trois fichiers dans _output/ :
-#   01-exemple.pdf          avec animations (pour projeter)
-#   01-exemple-handout.pdf  sans animations, une page par diapositive (à distribuer)
-#   01-exemple.html         reveal.js, à ouvrir dans un navigateur (touche S : notes)
-# Supprimer une ligne ci-dessous pour ne plus produire le format correspondant.
+# Chaque présentation produit deux fichiers dans _output/ :
+#   01-exemple.html  à projeter depuis un navigateur (touche S : notes de l'orateur,
+#                    F : plein écran)
+#   01-exemple.pdf   à distribuer : une page par diapositive, état final des
+#                    animations, sans les notes (exporté automatiquement)
 format:
-  theme-hearc-beamer:
-    # Thème Beamer : `hearc-ing` (charte du logo) ou tout thème standard
-    # (Madrid, Boadilla, metropolis, ...). Le nom du cours et la classe
-    # ne sont affichés que par le thème `hearc-ing`.
-    theme: hearc-ing
-    # colortheme: beaver
-  # Mêmes options que ci-dessus (à reporter si on change de thème)
-  theme-hearc-beamer+handout: default
-  # Thème reveal.js : `hearc-ing.scss` (défaut) ou un thème standard
-  # (simple, serif, ...) ; voir https://quarto.org/docs/presentations/revealjs/
+  # Options reveal.js : https://quarto.org/docs/presentations/revealjs/
+  # (par ex. `incremental: true` pour rendre toutes les listes progressives)
   theme-hearc-revealjs: default

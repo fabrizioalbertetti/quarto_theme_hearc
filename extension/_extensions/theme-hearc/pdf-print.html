@@ -1,0 +1,58 @@
+<script>
+// Export PDF (mode impression ?print-pdf, voir pdf-export.lua) :
+// - une diapositive défilante (.scrollable) est réduite pour tenir sur une
+//   seule page, titre compris (le navigateur ne sait pas couper son contenu
+//   sur plusieurs pages : il le repousserait en bloc sur la page suivante) ;
+// - pied de page et numéro sur chaque page sauf la page de titre, comme
+//   pendant la présentation (le pied de page fixe serait répété partout).
+if (/print-pdf/i.test(window.location.search)) {
+  Reveal.on("pdf-ready", function () {
+    var pages = Array.prototype.slice.call(document.querySelectorAll(".reveal .pdf-page"));
+    var pageHeight = Math.min.apply(null, pages.map(function (p) { return p.offsetHeight; }));
+    var slideHeight = Reveal.getConfig().height;
+
+    pages.forEach(function (page) {
+      var slide = page.querySelector("section.scrollable");
+      if (!slide) {
+        return;
+      }
+      var body = Array.prototype.filter.call(slide.children, function (el) {
+        return !/^H[12]$/.test(el.tagName);
+      });
+      if (body.length === 0) {
+        return;
+      }
+      var title = slide.querySelector(":scope > h2");
+      var top = title ? title.offsetTop + title.offsetHeight : 0;
+      var available = slideHeight * 0.9 - top;  // marge pour le pied de page
+      var start = slide.getBoundingClientRect().top + top;
+      var end = Math.max.apply(null, body.map(function (el) {
+        return el.getBoundingClientRect().bottom;
+      }));
+      var used = end - start;
+      if (used > available) {
+        var zoom = available / used;
+        body.forEach(function (el) { el.style.zoom = zoom; });
+      }
+      page.style.height = pageHeight + "px";
+    });
+
+    var footer = document.querySelector(".reveal > .footer");
+    pages.forEach(function (page, i) {
+      if (page.querySelector("#title-slide")) {
+        var number = page.querySelector(".slide-number-pdf");
+        if (number) {
+          number.style.display = "none";
+        }
+      } else if (footer) {
+        var copy = footer.cloneNode(true);
+        copy.style.position = "absolute";
+        page.appendChild(copy);
+      }
+    });
+    if (footer) {
+      footer.style.display = "none";
+    }
+  });
+}
+</script>
