@@ -1,0 +1,35 @@
+title: Thème HE-Arc Ingénierie (Beamer)
+author: Fabrizio Albertetti
+version: 1.0.0
+quarto-required: ">=1.4.0"
+contributes:
+  # Ajouté automatiquement au projet qui installe l'extension :
+  # renomme « cours+handout.pdf » en « cours-handout.pdf » après le rendu
+  metadata:
+    project:
+      post-render:
+        - handout-rename.lua
+  formats:
+    # Réglages partagés par les deux formats ci-dessous
+    common:
+      pdf-engine: xelatex
+      theme: hearc-ing
+      aspectratio: 169
+      slide-level: 2
+      lang: fr
+      logo: logo-he-arc-ing.jpg
+      logooptions:
+        - height=0.9cm
+      highlight-style: github
+      fig-align: center
+      filters:
+        - course-meta.lua
+      format-resources:
+        - beamerthemehearc-ing.sty
+        - logo-he-arc-ing.jpg
+    # theme-hearc-beamer : présentation avec animations (pauses, listes progressives)
+    beamer: {}
+    # theme-hearc-beamer+handout : support à distribuer, une page par diapositive
+    beamer+handout:
+      classoption:
+        - handout

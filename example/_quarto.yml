@@ -1,0 +1,31 @@
+project:
+  type: default
+  output-dir: _output
+
+# ---------------------------------------------------------------------------
+# Paramètres communs à toutes les présentations du cours
+# (à adapter une fois par cours ; titre et sous-titre sont dans chaque .qmd)
+# ---------------------------------------------------------------------------
+course:
+  name: "Intelligence Artificielle"
+  short: "IA"          # affiché dans le pied de page (optionnel, défaut : name)
+  class: "ISC3"       # classe / volée
+  footer: ""          # texte libre à gauche du pied de page (optionnel)
+
+author: "Fabrizio Albertetti"
+institute: "HE-Arc Ingénierie"
+date: today
+date-format: "D MMMM YYYY"
+
+# Chaque présentation produit deux PDF dans _output/ :
+#   01-exemple.pdf          avec animations (pour projeter)
+#   01-exemple-handout.pdf  sans animations, une page par diapositive (à distribuer)
+format:
+  theme-hearc-beamer:
+    # Thème Beamer : `hearc-ing` (charte du logo) ou tout thème standard
+    # (Madrid, Boadilla, metropolis, ...). Le nom du cours et la classe
+    # ne sont affichés que par le thème `hearc-ing`.
+    theme: hearc-ing
+    # colortheme: beaver
+  # Mêmes options que ci-dessus (à reporter si on change de thème)
+  theme-hearc-beamer+handout: default

@@ -1,0 +1,78 @@
+---
+title: "Chap. 1 - Introduction au cours"
+subtitle: "Objectifs et organisation"
+---
+
+# Organisation
+
+## Objectifs du cours
+
+À la fin du cours, vous serez capables de :
+
+- concevoir une application orientée objet ;
+- appliquer les principes **SOLID** ;
+  - en particulier l'inversion de dépendances ;
+- tester votre code de manière automatisée.
+
+## Apparition progressive
+
+Un premier point.
+
+. . .
+
+Un deuxième point, affiché au clic suivant.
+
+::: incremental
+- élément A
+- élément B
+:::
+
+# Contenu technique
+
+## Code source
+
+```python
+class Animal:
+    def __init__(self, nom: str) -> None:
+        self.nom = nom
+
+    def parler(self) -> str:
+        raise NotImplementedError
+```
+
+## Blocs
+
+### Définition
+
+Une **classe** est un modèle décrivant l'état et le comportement d'objets.
+
+### Attention {.alert}
+
+Ne confondez pas *classe* et *instance*.
+
+### Exemple {.example}
+
+`Animal("Rex")` crée une instance de `Animal`.
+
+## Deux colonnes et formule
+
+:::: columns
+::: {.column width="50%"}
+Complexité de la recherche dichotomique :
+
+$$
+T(n) = T\left(\frac{n}{2}\right) + O(1) = O(\log n)
+$$
+:::
+
+::: {.column width="50%"}
+| Structure | Accès  |
+|-----------|--------|
+| Tableau   | $O(1)$ |
+| Liste     | $O(n)$ |
+:::
+::::
+
+## Questions ?
+
+Merci de votre attention.

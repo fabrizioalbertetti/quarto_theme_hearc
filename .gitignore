@@ -1,0 +1,17 @@
+_output/
+.quarto/
+*_files/
+*.tex
+*.log
+*.aux
+*.vrb
+**/*.quarto_ipynb
+
+# Copiés automatiquement par l'extension au moment du rendu
+beamerthemehearc-ing.sty
+logo-he-arc-ing.jpg
+!/extension/_extensions/theme-hearc/beamerthemehearc-ing.sty
+!/extension/_extensions/theme-hearc/logo-he-arc-ing.jpg
+
+# Copie locale de l'extension, installée depuis ../extension (voir README)
+/example/_extensions/
