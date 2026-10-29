@@ -8,7 +8,7 @@ project:
 # ---------------------------------------------------------------------------
 course:
   name: "Intelligence Artificielle"
-  short: "IA"          # affiché dans le pied de page (optionnel, défaut : name)
+  short: "IA"          # page de titre et pied de page (optionnel, défaut : name)
   class: "ISC3"       # classe / volée
   footer: ""          # texte libre à gauche du pied de page (optionnel)
 

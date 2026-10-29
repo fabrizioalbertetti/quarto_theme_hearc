@@ -80,7 +80,7 @@ Pour figer une version, ajouter un tag : `quarto add fabrizioalbertetti/quarto_t
    ```yaml
    course:
      name: "Intelligence Artificielle"
-     short: "IA"        # pied de page (optionnel)
+     short: "IA"        # page de titre et pied de page (optionnel)
      class: "ISC3"     # classe / volée
      footer: ""          # texte à gauche du pied de page (optionnel)
    author: "Fabrizio Albertetti"
