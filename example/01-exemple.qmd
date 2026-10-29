@@ -1,7 +1,7 @@
 ---
 # Titre et sous-titre de la page de titre (auteur, date, cours : voir _quarto.yml)
-title: "Chap. 1 - Introduction à l'intelligence artificielle"
-subtitle: "Objectifs, notions de base et premiers algorithmes"
+subtitle: "Chap. 1 - Introduction à l'intelligence artificielle"
+title: "Objectifs, notions de base et premiers algorithmes"
 # Structure : un titre « # » crée une page de section, un titre « ## » crée
 # une diapositive (slide-level: 2). Les commentaires HTML <!-- ... --> placés
 # dans une diapositive ne sont affichés ni dans la présentation ni dans le PDF

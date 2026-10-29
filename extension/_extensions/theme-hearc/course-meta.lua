@@ -37,7 +37,7 @@ local function Meta(meta)
   end
   local class = to_inlines(course.class)
 
-  meta["hearc-courseline"] = course_line(name, class)
+  meta["hearc-courseline"] = course_line(short, class)
 
   footer = pandoc.Inlines({})
   local left = to_inlines(course.footer)
