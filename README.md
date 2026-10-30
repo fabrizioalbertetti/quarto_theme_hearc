@@ -49,8 +49,9 @@ Ajouter au `.gitignore` du dépôt du cours :
 !/_output/*.pdf
 # Cache et index de Quarto, dont l'état de quarto preview
 /.quarto/
-# Logo copié à côté de chaque .qmd au moment du rendu
+# Logo copié à côté de chaque .qmd au moment du rendu (mais pas celui de l'extension)
 logo-he-arc-ing.jpg
+!/_extensions/**/logo-he-arc-ing.jpg
 # Notebooks intermédiaires (diapositives qui exécutent du code)
 **/*.quarto_ipynb
 ```
