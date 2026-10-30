@@ -120,6 +120,10 @@ local function export(browser, html)
       "--disable-gpu",
       "--no-first-run",
       "--no-pdf-header-footer",
+      -- Sans ce drapeau, le budget de temps virtuel donne parfois une page
+      -- blanche (Chrome 156) ; sans le budget, Chrome imprimerait avant la
+      -- fin de la mise en page de reveal.js
+      "--run-all-compositor-stages-before-draw",
       "--virtual-time-budget=20000",
       quote("--user-data-dir=" .. profile),
       quote("--print-to-pdf=" .. pdf),
